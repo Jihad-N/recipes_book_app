@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_book_app/core/helper/build_Info_badge.dart';
 import 'package:recipe_book_app/core/models/recipe_model.dart';
+import 'package:recipe_book_app/shared/custom_recipe_image_widget.dart';
 
 class RecipeDetailsScreen extends StatelessWidget {
   final RecipeModel recipe;
@@ -41,42 +43,8 @@ class RecipeDetailsScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                child: ClipOval(
-                  child: Image.network(
-                    recipe.imageUrl,
-                    height: 180,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
-                    loadingBuilder: (context, child, loadingProgress) {
-                      if (loadingProgress == null) {
-                        return child;
-                      }
-                      return Container(
-                        height: 180,
-                        color: Colors.grey[200],
-                        child: const Center(child: CircularProgressIndicator()),
-                      );
-                    },
-                    errorBuilder: (context, error, stackTrace) {
-                      return Container(
-                        height: 180,
-                        width: double.infinity,
 
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(24),
-                          ),
-                          color: Color(0xFFFFCC80),
-                        ),
-                        child: Icon(
-                          Icons.restaurant,
-                          size: 50,
-                          color: Colors.white,
-                        ),
-                      );
-                    },
-                  ),
-                ),
+                child: ClipOval(child: CustomImageWidget(item: recipe)),
               ),
             ),
 
@@ -97,19 +65,19 @@ class RecipeDetailsScreen extends StatelessWidget {
             // 3. شارات معلومات الوقت والصعوبة
             Row(
               children: [
-                _buildDetailBadge(
+                buildInfoBadge(
                   text: " ${recipe.durationInMinutes} Mins",
                   bgColor: const Color(0xFFF8BBD0),
                   icon: Icons.star_rate_rounded,
                 ),
                 const SizedBox(width: 12),
-                _buildDetailBadge(
+                buildInfoBadge(
                   text: " ${recipe.difficulty}",
                   bgColor: const Color(0xFFD1C4E9),
                   icon: Icons.timer,
                 ),
                 const SizedBox(width: 12),
-                _buildDetailBadge(
+                buildInfoBadge(
                   text: " ${recipe.rating}",
                   bgColor: const Color(0xFFFFF9C4),
                   icon: Icons.bar_chart_sharp,
@@ -199,30 +167,30 @@ class RecipeDetailsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildDetailBadge({
-    required String text,
-    required Color bgColor,
-    required IconData icon,
-  }) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-      decoration: BoxDecoration(
-        color: bgColor,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Row(
-        children: [
-          Icon(icon, size: 20),
-          Text(
-            text,
-            style: const TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.bold,
-              color: Colors.black87,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  // Widget buildInfoBadge({
+  //   required String text,
+  //   required Color bgColor,
+  //   required IconData icon,
+  // }) {
+  //   return Container(
+  //     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+  //     decoration: BoxDecoration(
+  //       color: bgColor,
+  //       borderRadius: BorderRadius.circular(12),
+  //     ),
+  //     child: Row(
+  //       children: [
+  //         Icon(icon, size: 20),
+  //         Text(
+  //           text,
+  //           style: const TextStyle(
+  //             fontSize: 12,
+  //             fontWeight: FontWeight.bold,
+  //             color: Colors.black87,
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 }

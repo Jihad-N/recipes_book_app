@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:recipe_book_app/core/helper/build_category_item.dart';
 import 'package:recipe_book_app/core/providers/recipe_provider.dart';
 import 'package:recipe_book_app/features/details/recipe_details_screen.dart';
+import 'package:recipe_book_app/features/home/widgets/recipe_card.dart';
 
 class Homescreen extends StatefulWidget {
   const Homescreen({super.key});
@@ -126,25 +128,25 @@ class _HomescreenState extends State<Homescreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                _buildCategoryItem(
+                buildCategoryItem(
                   "Breakfast",
                   Icons.egg_outlined,
                   recipeProvider.selectedCategory == "Breakfast",
                   () => recipeProvider.changeCategory("Breakfast"),
                 ),
-                _buildCategoryItem(
+                buildCategoryItem(
                   "Lunch",
                   Icons.lunch_dining,
                   recipeProvider.selectedCategory == "Lunch",
                   () => recipeProvider.changeCategory('Lunch'),
                 ),
-                _buildCategoryItem(
+                buildCategoryItem(
                   "Drinks",
                   Icons.local_drink_outlined,
                   recipeProvider.selectedCategory == "Drinkes",
                   () => recipeProvider.changeCategory('Drinkes'),
                 ),
-                _buildCategoryItem(
+                buildCategoryItem(
                   "Desserts",
                   Icons.cake_outlined,
                   recipeProvider.selectedCategory == "Diserts",
@@ -269,114 +271,7 @@ class _HomescreenState extends State<Homescreen> {
                             ),
                           );
                         },
-                        child: Container(
-                          margin: const EdgeInsets.only(bottom: 16),
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(24),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              // card code:
-                              ClipRRect(
-                                borderRadius: BorderRadius.vertical(
-                                  top: Radius.circular(24),
-                                ),
-
-                                child: Center(
-                                  child: Image.network(
-                                    item.imageUrl,
-                                    height: 180,
-                                    width: double.infinity,
-                                    fit: BoxFit.cover,
-                                    loadingBuilder:
-                                        (context, child, loadingProgress) {
-                                          if (loadingProgress == null) {
-                                            return child;
-                                          }
-                                          return Container(
-                                            height: 180,
-                                            color: Colors.grey[200],
-                                            child: const Center(
-                                              child:
-                                                  CircularProgressIndicator(),
-                                            ),
-                                          );
-                                        },
-                                    errorBuilder: (context, error, stackTrace) {
-                                      return Container(
-                                        height: 180,
-                                        width: double.infinity,
-
-                                        decoration: const BoxDecoration(
-                                          borderRadius: BorderRadius.vertical(
-                                            top: Radius.circular(24),
-                                          ),
-                                          color: Color(0xFFFFCC80),
-                                        ),
-                                        child: Icon(
-                                          Icons.restaurant,
-                                          size: 50,
-                                          color: Colors.white,
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      item.title,
-                                      style: const TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 4),
-                                    Text(
-                                      item.description,
-                                      style: const TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.grey,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 12),
-
-                                    // تفاصيل الوجبة (التقييم والوقت والصعوبة)
-                                    Row(
-                                      children: [
-                                        _buildInfoBadge(
-                                          icon: Icons.star_rate_rounded,
-                                          text: " ${item.rating}",
-                                          bgColor: const Color(0xFFFFF9C4),
-                                        ),
-                                        const SizedBox(width: 8),
-                                        _buildInfoBadge(
-                                          icon: Icons.timer,
-                                          text:
-                                              " ${item.durationInMinutes} mins",
-                                          bgColor: const Color(0xFFF8BBD0),
-                                        ),
-                                        const SizedBox(width: 8),
-                                        _buildInfoBadge(
-                                          icon: Icons.bar_chart_sharp,
-                                          text: item.difficulty,
-                                          bgColor: Color(0xFFD1C4E9),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+                        child: RecipeCard(item: item),
                       );
                     },
                   ),
@@ -386,66 +281,6 @@ class _HomescreenState extends State<Homescreen> {
 
       //Bottom nav bar
       //bottomNavigationBar: CustomBottomNavBar(),
-    );
-  }
-
-  // ميثود مساعدة لبناء عنصر التصنيف
-  Widget _buildCategoryItem(
-    String title,
-    IconData icon,
-    bool isSelected,
-    VoidCallback ontap,
-  ) {
-    return GestureDetector(
-      onTap: ontap,
-      child: Column(
-        children: [
-          CircleAvatar(
-            radius: 28,
-            backgroundColor: isSelected
-                ? const Color(0xFF2B2B2B)
-                : Colors.white,
-            child: Icon(icon, color: isSelected ? Colors.white : Colors.black),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            title,
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-              color: isSelected ? Colors.black : Colors.grey,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  // ميثود مساعدة لبناء شارات المعلومات الصغيرة
-  Widget _buildInfoBadge({
-    required String text,
-    required Color bgColor,
-    required IconData icon,
-  }) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-      decoration: BoxDecoration(
-        color: bgColor,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Row(
-        children: [
-          Icon(icon, size: 20),
-          Text(
-            text,
-            style: const TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.bold,
-              color: Colors.black87,
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

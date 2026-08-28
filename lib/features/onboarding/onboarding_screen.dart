@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_book_app/core/routes/app_routes.dart';
+import 'package:recipe_book_app/features/onboarding/widget/next_button.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -50,11 +50,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFFF2CC), // الخلفية الفاتحة الموحدة
+      backgroundColor: const Color(0xFFFFF2CC), 
       body: SafeArea(
         child: Column(
           children: [
-            // المساحة العلوية المخصصة للصور أو الرسومات
+            //  الصور أو الرسومات
             Expanded(
               flex: 4,
               child: Container(
@@ -169,51 +169,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   ),
 
                   // Next button
-                  ElevatedButton(
-                    onPressed: () {
-                      if (_currentPage < _onboardingData.length - 1) {
-                        _pageController.nextPage(
-                          duration: const Duration(milliseconds: 400),
-                          curve: Curves.easeInOut,
-                        );
-                      } else {
-                        // navigate
-                        Navigator.pushReplacementNamed(
-                          context,
-                          AppRoutes.layout,
-                        );
-                      }
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF2B2B2B),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 24,
-                        vertical: 16,
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          _currentPage == _onboardingData.length - 1
-                              ? "Get Started"
-                              : "next",
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        const Icon(
-                          Icons.arrow_forward,
-                          color: Colors.white,
-                          size: 18,
-                        ),
-                      ],
-                    ),
+                  NextButton(
+                    currentPage: _currentPage,
+                    onboardingData: _onboardingData,
+                    pageController: _pageController,
                   ),
                 ],
               ),
