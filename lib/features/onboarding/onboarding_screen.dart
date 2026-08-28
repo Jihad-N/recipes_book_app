@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_book_app/core/theme/app_text_styles.dart';
 import 'package:recipe_book_app/features/onboarding/widget/next_button.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -12,7 +13,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
 
-  // قائمة بيانات الصفحات الثلاثة (يمكنكِ تغيير النصوص والألوان حسب الرغبة)
+  // قائمة بيانات الصفحات الثلاثة
   final List<Map<String, dynamic>> _onboardingData = [
     {
       "words": ["Cook", "smarter", "not", "harder"],
@@ -50,7 +51,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFFF2CC), 
+      backgroundColor: const Color(0xFFFFF2CC),
       body: SafeArea(
         child: Column(
           children: [
@@ -115,11 +116,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                 ),
                                 child: Text(
                                   data["words"][wIndex],
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                  ),
+                                  style: AppTextStyles.blackfont18Bold,
                                 ),
                               );
                             }),
@@ -131,11 +128,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         Text(
                           data["subtitle"],
                           textAlign: TextAlign.center,
-                          style: const TextStyle(
-                            fontSize: 16,
-                            color: Colors.black87,
-                            height: 1.4,
-                          ),
+                          style: AppTextStyles.font16black87,
                         ),
                       ],
                     ),

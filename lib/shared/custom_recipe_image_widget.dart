@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:recipe_book_app/core/models/recipe_model.dart';
+import 'package:recipe_book_app/core/theme/app_colors.dart';
 
 class CustomImageWidget extends StatelessWidget {
   const CustomImageWidget({
@@ -40,7 +41,7 @@ class CustomImageWidget extends StatelessWidget {
             borderRadius: BorderRadius.vertical(
               top: Radius.circular(24),
             ),
-            color: Color(0xFFFFCC80),
+            color: AppColors.secondary,
           ),
           child: Icon(
             Icons.restaurant,

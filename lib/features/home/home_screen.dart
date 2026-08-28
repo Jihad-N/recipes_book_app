@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:recipe_book_app/core/helper/build_category_item.dart';
 import 'package:recipe_book_app/core/providers/recipe_provider.dart';
+import 'package:recipe_book_app/core/theme/app_text_styles.dart';
 import 'package:recipe_book_app/features/details/recipe_details_screen.dart';
+import 'package:recipe_book_app/features/home/widgets/apply_filter_button.dart';
 import 'package:recipe_book_app/features/home/widgets/recipe_card.dart';
 
 class Homescreen extends StatefulWidget {
@@ -29,12 +31,9 @@ class _HomescreenState extends State<Homescreen> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            const DrawerHeader(
+            DrawerHeader(
               decoration: BoxDecoration(color: Color(0xFF2B2B2B)),
-              child: Text(
-                'Chef Menu',
-                style: TextStyle(color: Colors.white, fontSize: 24),
-              ),
+              child: Text('Chef Menu', style: AppTextStyles.whitefont24),
             ),
             ListTile(
               leading: const Icon(Icons.person),
@@ -106,7 +105,7 @@ class _HomescreenState extends State<Homescreen> {
                 },
                 decoration: InputDecoration(
                   hintText: "Search recipes, ingredients...",
-                  hintStyle: const TextStyle(color: Colors.grey, fontSize: 15),
+                  hintStyle: AppTextStyles.greyfont15,
                   prefixIcon: const Icon(Icons.search, color: Colors.black54),
                   // زر لمسح النص المكتوب (يظهر فقط إذا كان هناك نص)
                   suffixIcon: recipeProvider.searchQuery.isNotEmpty
@@ -162,11 +161,7 @@ class _HomescreenState extends State<Homescreen> {
               children: [
                 Text(
                   "${recipeProvider.filteredRecipes.length} ${recipeProvider.selectedCategory.toLowerCase()}s",
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
+                  style: AppTextStyles.blackfont24Bold,
                 ),
                 IconButton(
                   icon: const Icon(Icons.tune, color: Colors.black),
@@ -185,12 +180,9 @@ class _HomescreenState extends State<Homescreen> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
+                              Text(
                                 "Filter Recipes",
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                                style: AppTextStyles.font20Bold,
                               ),
                               const SizedBox(height: 20),
 
@@ -221,17 +213,7 @@ class _HomescreenState extends State<Homescreen> {
 
                               const Spacer(),
 
-                              ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(0xFF2B2B2B),
-                                  minimumSize: const Size(double.infinity, 50),
-                                ),
-                                onPressed: () => Navigator.pop(context),
-                                child: const Text(
-                                  "Apply Filters",
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ),
+                              ApplyFilterButton(),
                             ],
                           ),
                         );
@@ -245,12 +227,12 @@ class _HomescreenState extends State<Homescreen> {
 
             // 3. (Recipe Card)
             allrecipes.isEmpty
-                ? const Center(
+                ? Center(
                     child: Padding(
                       padding: EdgeInsets.only(top: 40.0),
                       child: Text(
                         "No recipes match your search",
-                        style: TextStyle(color: Colors.grey),
+                        style: AppTextStyles.greyfont15,
                       ),
                     ),
                   )
@@ -284,3 +266,4 @@ class _HomescreenState extends State<Homescreen> {
     );
   }
 }
+
