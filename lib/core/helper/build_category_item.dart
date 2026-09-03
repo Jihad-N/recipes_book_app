@@ -5,6 +5,7 @@ Widget buildCategoryItem(
     IconData icon,
     bool isSelected,
     VoidCallback ontap,
+    BuildContext context,
   ) {
     return GestureDetector(
       onTap: ontap,
@@ -24,7 +25,9 @@ Widget buildCategoryItem(
               fontSize: 12,
               fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
               color: isSelected ? Colors.black : Colors.grey,
-            ),
+            ).copyWith(
+                  color: Theme.of(context).textTheme.bodyLarge?.color,
+                ),
           ),
         ],
       ),

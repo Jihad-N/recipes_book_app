@@ -6,10 +6,12 @@ class RecipeProvider extends ChangeNotifier {
   String _selectedCategory = 'Lunch';
   int _currentNavIndex = 0;
   String _searchQuery = '';
+  bool _isDarkMode = false;
 
   String get selectedCategory => _selectedCategory;
   int get currentNavIndex => _currentNavIndex;
   String get searchQuery => _searchQuery;
+  bool get isDarkMode => _isDarkMode;
 
   List<RecipeModel> get filteredRecipes {
     return dummyRecipes.where((recipe) {
@@ -35,6 +37,11 @@ class RecipeProvider extends ChangeNotifier {
 
   void updateSearchQuery(String query) {
     _searchQuery = query;
+    notifyListeners();
+  }
+
+  void toggleTheme(bool value) {
+    _isDarkMode = value;
     notifyListeners();
   }
 }

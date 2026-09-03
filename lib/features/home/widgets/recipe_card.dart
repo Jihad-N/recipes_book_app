@@ -4,10 +4,7 @@ import 'package:recipe_book_app/core/models/recipe_model.dart';
 import 'package:recipe_book_app/shared/custom_recipe_image_widget.dart';
 
 class RecipeCard extends StatelessWidget {
-  const RecipeCard({
-    super.key,
-    required this.item,
-  });
+  const RecipeCard({super.key, required this.item});
 
   final RecipeModel item;
 
@@ -17,7 +14,7 @@ class RecipeCard extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 16),
       width: double.infinity,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(24),
       ),
       child: Column(
@@ -25,13 +22,9 @@ class RecipeCard extends StatelessWidget {
         children: [
           // card code:
           ClipRRect(
-            borderRadius: BorderRadius.vertical(
-              top: Radius.circular(24),
-            ),
-    
-            child: Center(
-              child: CustomImageWidget(item: item),
-            ),
+            borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+
+            child: Center(child: CustomImageWidget(item: item)),
           ),
           Padding(
             padding: const EdgeInsets.all(16.0),
@@ -48,13 +41,10 @@ class RecipeCard extends StatelessWidget {
                 const SizedBox(height: 4),
                 Text(
                   item.description,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    color: Colors.grey,
-                  ),
+                  style: const TextStyle(fontSize: 14, color: Colors.grey),
                 ),
                 const SizedBox(height: 12),
-    
+
                 // تفاصيل الوجبة (التقييم والوقت والصعوبة)
                 Row(
                   children: [
@@ -66,8 +56,7 @@ class RecipeCard extends StatelessWidget {
                     const SizedBox(width: 8),
                     buildInfoBadge(
                       icon: Icons.timer,
-                      text:
-                          " ${item.durationInMinutes} mins",
+                      text: " ${item.durationInMinutes} mins",
                       bgColor: const Color(0xFFF8BBD0),
                     ),
                     const SizedBox(width: 8),

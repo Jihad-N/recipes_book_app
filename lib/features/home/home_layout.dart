@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:recipe_book_app/core/providers/recipe_provider.dart';
 import 'package:recipe_book_app/features/home/home_screen.dart';
+import 'package:recipe_book_app/features/profile/profile_screen.dart';
 import 'package:recipe_book_app/shared/custom_bottom_nav_bar.dart';
 
 class HomeLayout extends StatelessWidget {
@@ -15,11 +16,11 @@ class HomeLayout extends StatelessWidget {
       const Homescreen(),
       const Center(child: Text("Book View")),
       const Center(child: Text("Favorite View")),
-      const Center(child: Text("Profile View")),
+      const ProfileScreen(),
     ];
 
     return Scaffold(
-      backgroundColor: const Color(0xFFE8F5E9),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: _screens[recipeProvider.currentNavIndex],
       bottomNavigationBar: CustomBottomNavBar(
         currentIndex: recipeProvider.currentNavIndex,

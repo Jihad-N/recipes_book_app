@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_book_app/core/helper/build_Info_badge.dart';
 import 'package:recipe_book_app/core/models/recipe_model.dart';
+import 'package:recipe_book_app/shared/custom_app_bar.dart';
 import 'package:recipe_book_app/shared/custom_recipe_image_widget.dart';
 
 class RecipeDetailsScreen extends StatelessWidget {
@@ -11,16 +12,9 @@ class RecipeDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 254, 237, 254),
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
-          onPressed: () => Navigator.pop(context),
-          icon: Icon(Icons.arrow_back_ios_new),
-        ),
-        actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.favorite_border)),
-        ],
+      appBar: CustomAppBar(
+        onPressed: () => Navigator.pop(context),
+        actionsIcon: Icon(Icons.favorite_border),
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(24.0),
@@ -166,5 +160,4 @@ class RecipeDetailsScreen extends StatelessWidget {
       ),
     );
   }
-
- }
+}

@@ -25,7 +25,7 @@ class _HomescreenState extends State<Homescreen> {
 
     return Scaffold(
       key: _scaffoldKey,
-      backgroundColor: const Color(0xFFE8F5E9),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       drawer: Drawer(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
         child: ListView(
@@ -33,7 +33,12 @@ class _HomescreenState extends State<Homescreen> {
           children: [
             DrawerHeader(
               decoration: BoxDecoration(color: Color(0xFF2B2B2B)),
-              child: Text('Chef Menu', style: AppTextStyles.whitefont24),
+              child: Text(
+                'Chef Menu',
+                style: AppTextStyles.whitefont24.copyWith(
+                  color: Theme.of(context).textTheme.bodyLarge?.color,
+                ),
+              ),
             ),
             ListTile(
               leading: const Icon(Icons.person),
@@ -132,24 +137,28 @@ class _HomescreenState extends State<Homescreen> {
                   Icons.egg_outlined,
                   recipeProvider.selectedCategory == "Breakfast",
                   () => recipeProvider.changeCategory("Breakfast"),
+                  context,
                 ),
                 buildCategoryItem(
                   "Lunch",
                   Icons.lunch_dining,
                   recipeProvider.selectedCategory == "Lunch",
                   () => recipeProvider.changeCategory('Lunch'),
+                  context,
                 ),
                 buildCategoryItem(
                   "Drinks",
                   Icons.local_drink_outlined,
                   recipeProvider.selectedCategory == "Drinkes",
                   () => recipeProvider.changeCategory('Drinkes'),
+                  context,
                 ),
                 buildCategoryItem(
                   "Desserts",
                   Icons.cake_outlined,
                   recipeProvider.selectedCategory == "Diserts",
                   () => recipeProvider.changeCategory('Diserts'),
+                  context,
                 ),
               ],
             ),
@@ -266,4 +275,3 @@ class _HomescreenState extends State<Homescreen> {
     );
   }
 }
-

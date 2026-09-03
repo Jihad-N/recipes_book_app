@@ -20,8 +20,20 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final recipeProvider = Provider.of<RecipeProvider>(context);
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        brightness: Brightness.light,
+        scaffoldBackgroundColor: Color(0xFFE8F5E9),
+        cardColor: Colors.white,
+      ),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+        scaffoldBackgroundColor: Color(0xFf121212),
+        cardColor: Color.fromARGB(255, 45, 45, 45),
+      ),
       routes: {
         AppRoutes.onboarding: (context) => const OnboardingScreen(),
         AppRoutes.home: (context) => const Homescreen(),
@@ -30,6 +42,7 @@ class MyApp extends StatelessWidget {
         //AppRoutes.details:(context)=> const RecipeDetailsScreen(recipe: ),
       },
       initialRoute: AppRoutes.onboarding,
+      themeMode: recipeProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
     );
   }
 }
