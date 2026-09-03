@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:recipe_book_app/core/helper/build_Info_badge.dart';
 import 'package:recipe_book_app/core/models/recipe_model.dart';
+import 'package:recipe_book_app/core/providers/recipe_provider.dart';
+import 'package:recipe_book_app/core/theme/app_text_styles.dart';
 import 'package:recipe_book_app/shared/custom_app_bar.dart';
 import 'package:recipe_book_app/shared/custom_recipe_image_widget.dart';
 
@@ -10,11 +13,22 @@ class RecipeDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final recipeProvider = Provider.of<RecipeProvider>(context);
+    final isFav = recipeProvider.isRecipeFavorite(recipe);
+
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 254, 237, 254),
+      backgroundColor: Theme.of(context).canvasColor,
       appBar: CustomAppBar(
         onPressed: () => Navigator.pop(context),
-        actionsIcon: Icon(Icons.favorite_border),
+        actionsIcon: IconButton(
+          icon: Icon(
+            isFav ? Icons.favorite : Icons.favorite_border,
+            color: isFav ? Colors.red : Theme.of(context).iconTheme.color,
+          ),
+          onPressed: () {
+            recipeProvider.toggleFavorite(recipe);
+          },
+        ),
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(24.0),
@@ -47,13 +61,12 @@ class RecipeDetailsScreen extends StatelessWidget {
             // 2. اسم الوجبة ووصفها
             Text(
               recipe.title,
-              style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+              style: AppTextStyles.font28Bold.copyWith(
+                color: Theme.of(context).textTheme.bodyLarge?.color,
+              ),
             ),
             const SizedBox(height: 8),
-            Text(
-              recipe.description,
-              style: TextStyle(fontSize: 16, color: Colors.grey[600]),
-            ),
+            Text(recipe.description, style: AppTextStyles.greyfont15),
             const SizedBox(height: 24),
 
             // 3. شارات معلومات الوقت والصعوبة
@@ -81,10 +94,7 @@ class RecipeDetailsScreen extends StatelessWidget {
             const SizedBox(height: 32),
 
             // 4. عنوان المكونات
-            const Text(
-              "Ingredients",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
+            Text("Ingredients", style: AppTextStyles.font20Bold),
             const SizedBox(height: 16),
 
             // 5. قائمة المكونات المبنية ديناميكياً من الـ Model

@@ -8,6 +8,8 @@ class RecipeProvider extends ChangeNotifier {
   String _searchQuery = '';
   bool _isDarkMode = false;
   String _selectedAvatar = 'assets/images/watermellon.png';
+  final List<RecipeModel> _myCustomRecipes = [];
+
   final List<String> _avatars = [
     'assets/images/watermellon.png',
     'assets/images/orange.png',
@@ -15,6 +17,7 @@ class RecipeProvider extends ChangeNotifier {
     'assets/images/jewif.png',
     'assets/images/dragon-fruit.png',
   ];
+  final List<RecipeModel> _favoriteRecipes = [];
 
   String get selectedCategory => _selectedCategory;
   int get currentNavIndex => _currentNavIndex;
@@ -22,6 +25,7 @@ class RecipeProvider extends ChangeNotifier {
   bool get isDarkMode => _isDarkMode;
   List<String> get avatars => _avatars;
   String get selectedAvatar => _selectedAvatar;
+  List<RecipeModel> get myCustomRecipes => _myCustomRecipes;
 
   List<RecipeModel> get filteredRecipes {
     return dummyRecipes.where((recipe) {
@@ -34,6 +38,8 @@ class RecipeProvider extends ChangeNotifier {
       return matchesCategory && matchesSearch;
     }).toList();
   }
+
+  List<RecipeModel> get favoriteRecipes => _favoriteRecipes;
 
   void changeCategory(String newCategory) {
     _selectedCategory = newCategory;
@@ -55,9 +61,38 @@ class RecipeProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updateAvatar(String avatarUrl){
+  void updateAvatar(String avatarUrl) {
     _selectedAvatar = avatarUrl;
     notifyListeners();
   }
-  
+
+  void toggleFavorite(RecipeModel recipe) {
+    if (_favoriteRecipes.contains(recipe)) {
+      _favoriteRecipes.remove(recipe);
+    } else {
+      _favoriteRecipes.add(recipe);
+    }
+    notifyListeners();
+  }
+
+  bool isRecipeFavorite(RecipeModel recipe) {
+    return _favoriteRecipes.contains(recipe);
+  }
+
+  void addCustomRecipe(String title, int duration, String category) {
+    final newRecipe = RecipeModel(
+      id: 'custom_${DateTime.now().millisecondsSinceEpoch}',
+      title: title,
+      description: 'My Custom HomeMade recipe.',
+      imageUrl: '',
+      rating: 5.0,
+      durationInMinutes: duration,
+      difficulty: 'Easy',
+      category: category,
+      ingredients: ['Ingeridient not specified yet'],
+      instructions: [],
+    );
+    _myCustomRecipes.add(newRecipe);
+    notifyListeners();
+  }
 }

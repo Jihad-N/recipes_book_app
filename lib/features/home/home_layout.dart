@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:recipe_book_app/core/providers/recipe_provider.dart';
+import 'package:recipe_book_app/features/book/book_screen.dart';
+import 'package:recipe_book_app/features/favorite/favorite_screen.dart';
 import 'package:recipe_book_app/features/home/home_screen.dart';
 import 'package:recipe_book_app/features/profile/profile_screen.dart';
 import 'package:recipe_book_app/shared/custom_bottom_nav_bar.dart';
@@ -14,8 +16,8 @@ class HomeLayout extends StatelessWidget {
 
     final List<Widget> _screens = [
       const Homescreen(),
-      const Center(child: Text("Book View")),
-      const Center(child: Text("Favorite View")),
+      const BookScreen(),
+      const FavoritesScreen(),
       const ProfileScreen(),
     ];
 

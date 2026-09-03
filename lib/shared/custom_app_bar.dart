@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final Icon actionsIcon;
+  final Widget actionsIcon;
   final Function()? onPressed;
   const CustomAppBar({super.key, required this.actionsIcon, this.onPressed});
 
@@ -17,7 +17,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         onPressed: onPressed,
         icon: Icon(Icons.arrow_back_ios_new),
       ),
-      actions: [IconButton(onPressed: () {}, icon: actionsIcon)],
+      actions: [actionsIcon],
     );
   }
 }

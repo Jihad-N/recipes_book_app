@@ -3,6 +3,9 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 abstract class AppTextStyles {
+  static TextStyle get font28Bold =>
+      TextStyle(fontSize: 28, fontWeight: FontWeight.bold);
+    
   static TextStyle get whitefont24 =>
       TextStyle(color: Colors.white, fontSize: 24);
 

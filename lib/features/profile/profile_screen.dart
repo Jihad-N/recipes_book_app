@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:recipe_book_app/core/providers/recipe_provider.dart';
+import 'package:recipe_book_app/core/routes/app_routes.dart';
 import 'package:recipe_book_app/core/theme/app_text_styles.dart';
 import 'package:recipe_book_app/features/profile/widgets/avatar_sheet_widget.dart';
 
@@ -75,7 +76,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     leading: const Icon(Icons.favorite_border),
                     title: const Text("My Favorites"),
                     trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.pushNamed(context, AppRoutes.favorites);
+                    },
                   ),
                   const Divider(height: 1),
                   SwitchListTile(

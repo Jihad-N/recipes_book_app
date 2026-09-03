@@ -33,12 +33,7 @@ class _HomescreenState extends State<Homescreen> {
           children: [
             DrawerHeader(
               decoration: BoxDecoration(color: Color(0xFF2B2B2B)),
-              child: Text(
-                'Chef Menu',
-                style: AppTextStyles.whitefont24.copyWith(
-                  color: Theme.of(context).textTheme.bodyLarge?.color,
-                ),
-              ),
+              child: Text('Chef Menu', style: AppTextStyles.whitefont24),
             ),
             ListTile(
               leading: const Icon(Icons.person),
@@ -170,10 +165,12 @@ class _HomescreenState extends State<Homescreen> {
               children: [
                 Text(
                   "${recipeProvider.filteredRecipes.length} ${recipeProvider.selectedCategory.toLowerCase()}s",
-                  style: AppTextStyles.blackfont24Bold,
+                  style: AppTextStyles.blackfont24Bold.copyWith(
+                    color: Theme.of(context).textTheme.bodyLarge?.color,
+                  ),
                 ),
                 IconButton(
-                  icon: const Icon(Icons.tune, color: Colors.black),
+                  icon: const Icon(Icons.tune),
                   onPressed: () {
                     showModalBottomSheet(
                       context: context,
