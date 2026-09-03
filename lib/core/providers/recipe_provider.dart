@@ -7,11 +7,21 @@ class RecipeProvider extends ChangeNotifier {
   int _currentNavIndex = 0;
   String _searchQuery = '';
   bool _isDarkMode = false;
+  String _selectedAvatar = 'assets/images/watermellon.png';
+  final List<String> _avatars = [
+    'assets/images/watermellon.png',
+    'assets/images/orange.png',
+    'assets/images/kiwi.png',
+    'assets/images/jewif.png',
+    'assets/images/dragon-fruit.png',
+  ];
 
   String get selectedCategory => _selectedCategory;
   int get currentNavIndex => _currentNavIndex;
   String get searchQuery => _searchQuery;
   bool get isDarkMode => _isDarkMode;
+  List<String> get avatars => _avatars;
+  String get selectedAvatar => _selectedAvatar;
 
   List<RecipeModel> get filteredRecipes {
     return dummyRecipes.where((recipe) {
@@ -44,4 +54,10 @@ class RecipeProvider extends ChangeNotifier {
     _isDarkMode = value;
     notifyListeners();
   }
+
+  void updateAvatar(String avatarUrl){
+    _selectedAvatar = avatarUrl;
+    notifyListeners();
+  }
+  
 }

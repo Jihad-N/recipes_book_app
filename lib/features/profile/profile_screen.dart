@@ -2,19 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:recipe_book_app/core/providers/recipe_provider.dart';
 import 'package:recipe_book_app/core/theme/app_text_styles.dart';
+import 'package:recipe_book_app/features/profile/widgets/avatar_sheet_widget.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final recipeProvider = Provider.of<RecipeProvider>(context);
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           "Profile",
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          style: AppTextStyles.blackfont22Bold.copyWith(
+            color: Theme.of(context).textTheme.bodyLarge?.color,
+          ),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -25,11 +33,8 @@ class ProfileScreen extends StatelessWidget {
         child: Column(
           children: [
             // 1. قسم الصورة الشخصية والبيانات الأساسية
-            const CircleAvatar(
-              radius: 50,
-              backgroundColor: Color(0xFFFFCC80),
-              child: Icon(Icons.person, size: 50, color: Colors.white),
-            ),
+            AvatarSheetWidget(recipeProvider: recipeProvider),
+
             const SizedBox(height: 16),
             Text(
               "Sarah Ahmed",
@@ -122,78 +127,3 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 }
-
-// import 'package:flutter/material.dart';
-// import 'package:recipe_book_app/core/theme/app_colors.dart';
-// import 'package:recipe_book_app/shared/custom_app_bar.dart';
-
-// class ProfileScreen extends StatelessWidget {
-//   const ProfileScreen({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: AppColors.lightSurface,
-//       appBar: CustomAppBar(onPressed: () {}, actionsIcon: Icon(null)),
-//       body: Column(
-//         mainAxisAlignment: MainAxisAlignment.center,
-//         children: [
-//           SizedBox(
-//             child: Stack(
-//               children: [
-//                 CircleAvatar(
-//                   radius: 75,
-//                   backgroundColor: AppColors.primary,
-//                   child: Icon(
-//                     Icons.person_rounded,
-//                     color: Colors.white,
-//                     size: 30,
-//                   ),
-//                 ),
-//                 Positioned(
-//                   bottom: 5,
-//                   left: 5,
-//                   child: CircleAvatar(
-//                     radius: 15,
-//                     backgroundColor: AppColors.darkSurface,
-//                     child: Icon(
-//                       Icons.photo_camera_outlined,
-//                       color: Colors.white,
-//                       size: 20,
-//                     ),
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ),
-
-//           Padding(
-//             padding: const EdgeInsets.all(16.0),
-//             child: Container(
-//               height: 200,
-//               decoration: BoxDecoration(
-//                 color: Colors.white,
-//                 borderRadius: BorderRadius.circular(24.0),
-//               ),
-//               child: Column(
-//                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 children: [
-//                   TextButton(
-//                     onPressed: () {},
-//                     child: Row(
-//                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                       children: [Text('LogOut '), Icon(Icons.logout_rounded)],
-//                     ),
-//                   ),
-//                   TextButton(onPressed: () {}, child: Text('Mode')),
-//                   TextButton(onPressed: () {}, child: Text('Invite a friend')),
-//                   TextButton(onPressed: () {}, child: Text('Rate Us')),
-//                 ],
-//               ),
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
